@@ -36,7 +36,7 @@ public class ejercicio13 extends AppCompatActivity {
 
     private void onAction(int id) {
         int [] cal={1000,2000};
-        int calnum=0;
+        String msg="";
         switch (id){
             case R.id.RB1:Comprobacion(0,cal[0]);break;
             case R.id.RB2:Comprobacion(cal[0],cal[1]);break;

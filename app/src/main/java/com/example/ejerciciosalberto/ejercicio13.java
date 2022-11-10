@@ -27,49 +27,75 @@ public class ejercicio13 extends AppCompatActivity {
     }
 
     private void FunctionListenner() {
+
+
+    }
+
+    private void AsociarComponents(){
+
         radioGroup=findViewById(R.id.radioGroupejer13);
+
         checkBox1=findViewById(R.id.checkBox1);
         checkBox2=findViewById(R.id.checkBox2);
         checkBox2=findViewById(R.id.checkBox3);
-        radioGroup.setOnCheckedChangeListener(((radioGroup, id) -> onAction(id)));
+
+        textViewResult=findViewById(R.id.textView3);
+
+
+
     }
 
-    private void onAction(int id) {
-        int [] cal={1000,2000};
-        String msg="";
-        switch (id){
-            case R.id.RB1:Comprobacion(0,cal[0]);break;
-            case R.id.RB2:Comprobacion(cal[0],cal[1]);break;
-            case R.id.RB3:Comprobacion(0,cal[1]);break;
+    private void ControllerListenner(){
+
+        radioGroup.setOnCheckedChangeListener(((radioGroup1, i) -> ActualizarTextView()));
+
+        checkBox1.setOnCheckedChangeListener((checkBox1,k)->ActualizarTextView());
+        checkBox2.setOnCheckedChangeListener((checkBox2,k)->ActualizarTextView());
+        checkBox3.setOnCheckedChangeListener((checkBox3,k)->ActualizarTextView());
+        checkBox4.setOnCheckedChangeListener((checkBox4,k)->ActualizarTextView());
+
+    }
+
+        private void ActualizarTextView() {
+
+        int calorias=0;
+
+        calorias+=checkBox1.isChecked()?100:0;
+        calorias+=checkBox2.isChecked()?500:0;
+        calorias+=checkBox3.isChecked()?1000:0;
+        calorias+=checkBox4.isChecked()?2000:0;
+
+        int min=0,max=0;
+
+
+        switch (radioGroup.getCheckedRadioButtonId()){
+
+            case R.id.radioButton1:min=0;max=1000;break;
+            case R.id.radioButton2:min=1000;max=2000;break;
+            case R.id.radioButton3:min=2000;max=6000;break;
+
         }
 
-    }
 
-    private void Comprobacion(int min, int max) {
+        String mensage="";
 
-        int sumCalorias=SumaCalorias();
-        if(sumCalorias<min){
+        mensage+=(calorias>=min&&calorias<max)?"OK":"Fatal";
 
-        }else if(sumCalorias>min && sumCalorias<max){
+        mensage+="te has enchufado %1$d calorias";
 
-        }else {
+        mensage=String.format(mensage,calorias);
 
-        }
+        this.textViewResult.setText(mensage);
 
 
-    }
 
-    private int SumaCalorias() {
-        int []calorias={100,500,1000,2000};
-        int sumaCalorias=0;
-        if(checkBox1.isChecked()&& checkBox2.isChecked()&&
-                checkBox3.isChecked()&& checkBox4.isChecked()){
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                sumaCalorias= Arrays.stream(calorias).sum();
-            }
+
+
+
+
+
+
 
         }
 
-        return sumaCalorias;
-    }
 }
